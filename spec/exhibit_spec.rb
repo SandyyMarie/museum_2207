@@ -1,4 +1,4 @@
-include './lib/exhibit.rb'
+require './lib/exhibit'
 
 RSpec.describe do 
     before :each do 
