@@ -38,9 +38,24 @@ RSpec.describe Museum do
         @patron_1.add_interest("Dead Sea Scrolls")
         @patron_1.add_interest("Gems and Minerals")
         @patron_2.add_interest("IMAX")
-        require 'pry'; binding.pry
         expect(@dmns.reccomend_exhibits(@patron_1).count).to eq(2)
         expect(@dmns.reccomend_exhibits(@patron_2).count).to eq(1)
+    end
+
+    it 'can return a hash of each patron that has interest in a given exhibit' do
+        expect(@dmns.patrons_by_exhibit_interest).to be_a(Hash)
+    end
+
+    it 'can return an array of patrons that cant afford exhibit but are interested' do
+        expect(@dmns.ticket_lottery_contestants).to eq([])
+    end
+
+    it 'can return a lottery winner from the #ticket_lottery_contestants' do
+        expect(@dmns.draw_lottery_winnder).to be_a(Patron) #change to stub
+    end
+
+    it 'can announce the lottery winner' do
+        expect(@dmns.announce_lottery_winner).to be_a(Patron) #change to stub
     end
 
 end
