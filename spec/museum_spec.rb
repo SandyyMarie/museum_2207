@@ -94,6 +94,7 @@ RSpec.describe Museum do
         @patron_2.add_interest("Dead Sea Scrolls")
         @patron_3.add_interest("Dead Sea Scrolls")
         expect(@dmns.draw_lottery_winner(@dead_sea_scrolls)).to be_a(String) #change to stub
+        #allow(@dmns).to recieve(:draw_lottery_winner.and return()
     end
 
     it 'can announce the lottery winner' do
@@ -108,6 +109,7 @@ RSpec.describe Museum do
         @patron_2.add_interest("Dead Sea Scrolls")
         @patron_3.add_interest("Dead Sea Scrolls")
         expect(@dmns.announce_lottery_winner(@dead_sea_scrolls)).to eq(nil) #change to stub
+        #allow(@dmns).to recieve(:announce_lottery_winner).and return()
     end
 
 end
