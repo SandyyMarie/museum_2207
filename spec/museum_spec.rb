@@ -25,16 +25,20 @@ RSpec.describe Museum do
     end
 
     it 'can add and return an array of exhibits' do
-        @dmns.add_exhibit(gems_and_minerals)
-        @dmns.add_exhibit(dead_sea_scrolls)
-        @dmns.add_exhibit(imax)
+        @dmns.add_exhibit(@gems_and_minerals)
+        @dmns.add_exhibit(@dead_sea_scrolls)
+        @dmns.add_exhibit(@imax)
         expect(@dmns.exhibits.count).to eq(3)
     end
 
     it 'can return the interest patrons have' do
+        @dmns.add_exhibit(@gems_and_minerals)
+        @dmns.add_exhibit(@dead_sea_scrolls)
+        @dmns.add_exhibit(@imax)
         @patron_1.add_interest("Dead Sea Scrolls")
         @patron_1.add_interest("Gems and Minerals")
-        @patron_2 = Patron.new("Sally", 20)
+        @patron_2.add_interest("IMAX")
+        require 'pry'; binding.pry
         expect(@dmns.reccomend_exhibits(@patron_1).count).to eq(2)
         expect(@dmns.reccomend_exhibits(@patron_2).count).to eq(1)
     end
