@@ -55,6 +55,9 @@ RSpec.describe Museum do
     end
 
     it 'can return a hash of each patron that has interest in a given exhibit' do
+        @dmns.admit(@patron_1)
+        @dmns.admit(@patron_2)
+        @dmns.admit(@patron_3)
         @dmns.add_exhibit(@gems_and_minerals)
         @dmns.add_exhibit(@dead_sea_scrolls)
         @dmns.add_exhibit(@imax)
@@ -62,19 +65,49 @@ RSpec.describe Museum do
         @patron_1.add_interest("Gems and Minerals")
         @patron_2.add_interest("Dead Sea Scrolls")
         @patron_3.add_interest("Dead Sea Scrolls")
-        expect(@dmns.patrons_by_exhibit_interest).to be_a(Hash)
+        expect(@dmns.patrons_by_exhibit_interest.count).to eq(3)
     end
 
     it 'can return an array of patrons that cant afford exhibit but are interested' do
-        expect(@dmns.ticket_lottery_contestants).to eq([])
+        @dmns.admit(@patron_1)
+        @dmns.admit(@patron_2)
+        @dmns.admit(@patron_3)
+        @dmns.add_exhibit(@gems_and_minerals)
+        @dmns.add_exhibit(@dead_sea_scrolls)
+        @dmns.add_exhibit(@imax)
+        @patron_1.add_interest("Dead Sea Scrolls")
+        @patron_1.add_interest("Gems and Minerals")
+        @patron_2.add_interest("Dead Sea Scrolls")
+        @patron_3.add_interest("Dead Sea Scrolls")
+        expect(@dmns.ticket_lottery_contestants(@dead_sea_scrolls).count).to eq(2)
     end
 
     it 'can return a lottery winner from the #ticket_lottery_contestants' do
-        expect(@dmns.draw_lottery_winnder).to be_a(Patron) #change to stub
+        @dmns.admit(@patron_1)
+        @dmns.admit(@patron_2)
+        @dmns.admit(@patron_3)
+        @dmns.add_exhibit(@gems_and_minerals)
+        @dmns.add_exhibit(@dead_sea_scrolls)
+        @dmns.add_exhibit(@imax)
+        @patron_1.add_interest("Dead Sea Scrolls")
+        @patron_1.add_interest("Gems and Minerals")
+        @patron_2.add_interest("Dead Sea Scrolls")
+        @patron_3.add_interest("Dead Sea Scrolls")
+        expect(@dmns.draw_lottery_winner(@dead_sea_scrolls)).to be_a(String) #change to stub
     end
 
     it 'can announce the lottery winner' do
-        expect(@dmns.announce_lottery_winner).to be_a(Patron) #change to stub
+        @dmns.admit(@patron_1)
+        @dmns.admit(@patron_2)
+        @dmns.admit(@patron_3)
+        @dmns.add_exhibit(@gems_and_minerals)
+        @dmns.add_exhibit(@dead_sea_scrolls)
+        @dmns.add_exhibit(@imax)
+        @patron_1.add_interest("Dead Sea Scrolls")
+        @patron_1.add_interest("Gems and Minerals")
+        @patron_2.add_interest("Dead Sea Scrolls")
+        @patron_3.add_interest("Dead Sea Scrolls")
+        expect(@dmns.announce_lottery_winner(@dead_sea_scrolls)).to eq(nil) #change to stub
     end
 
 end
